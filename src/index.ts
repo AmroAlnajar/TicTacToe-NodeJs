@@ -1,3 +1,5 @@
+import { showBoard, checkForWin, isBoardFull } from './gameLogic'
+
 //user input and format
 const input = process.stdin
 input.setEncoding('utf-8')
@@ -46,7 +48,7 @@ input.on('data', function (data: Buffer) {
   checkForWin(gameBoard, player1)
   checkForWin(gameBoard, player2)
 
-  if (checkForFullBoard(gameBoard)) {
+  if (isBoardFull(gameBoard)) {
     console.log('nobody wins')
     process.exit()
   }
@@ -65,45 +67,3 @@ input.on('data', function (data: Buffer) {
     console.log(player2 + "'s turn")
   }
 })
-
-//check if any of the patterns below are matched with X or O. If so, the player has won.
-function checkForWin(board: string[], player: string) {
-  const isWinner = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-  ].some((indices) => indices.every((index) => board[index] === player))
-
-  if (isWinner) {
-    return true
-  }
-}
-
-//check if nobody wins. If the array does not contain * and non of the rules above apply, nobody wins.
-function checkForFullBoard(board: string[]) {
-  if (!board.includes('*')) {
-    if (!checkForWin(gameBoard, player1)) {
-      if (!checkForWin(gameBoard, player2)) {
-        return true
-      }
-    }
-  } else {
-    return false
-  }
-}
-
-//showing the board in 3 rows and 3 columns
-function showBoard(board: string[]) {
-  console.log('---------')
-  console.log(board.slice(0, 3).join('   '))
-  console.log('')
-  console.log(board.slice(3, 6).join('   '))
-  console.log('')
-  console.log(board.slice(6, 9).join('   '))
-  console.log('---------')
-}

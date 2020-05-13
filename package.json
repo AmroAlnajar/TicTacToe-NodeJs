@@ -4,7 +4,8 @@
   "description": "a small program that challenges you to play tic tac toe against it",
   "main": "index.ts",
   "scripts": {
-    "dev": "ts-node index.ts",
+    "dev": "ts-node src/index.ts",
+    "test": "jest --watch",
     "prod": "tsc && node index.js"
   },
   "repository": {
@@ -25,5 +26,10 @@
     "@types/node": "^14.0.1",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.9.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^26.0.1",
+    "ts-jest": "^25.5.1"
   }
 }
