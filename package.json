@@ -1,0 +1,29 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "a small program that challenges you to play tic tac toe against it",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpileOnly index.ts",
+    "prod": "tsc index.ts && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmroAlnajar/Tic-Tac-Toe-with-Nodejs.git"
+  },
+  "keywords": [
+    "tic-tac-toe",
+    "typescript"
+  ],
+  "author": "Amro Alnajar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AmroAlnajar/Tic-Tac-Toe-with-Nodejs/issues"
+  },
+  "homepage": "https://github.com/AmroAlnajar/Tic-Tac-Toe-with-Nodejs#readme",
+  "dependencies": {
+    "@types/node": "^14.0.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.9.2"
+  }
+}
