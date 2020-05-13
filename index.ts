@@ -6,40 +6,39 @@ console.log('You will start with X.')
 console.log('Please choose a box number from 1 to 9 to fill the desired box.')
 
 //initializing an array of 9 fields where each one contains * as a start
-const gameBoard: String[] = [] // = ["*", "*", "*", "*", "*", "*", "*", "*", "*"];
+const gameBoard: string[] = [] // = ["*", "*", "*", "*", "*", "*", "*", "*", "*"];
 const symbol = '*'
 
 for (let i = 0; i < 9; i++) {
   gameBoard[i] = symbol
 }
 
+showBoard(gameBoard)
+
 //determining who's turn it is and the players' symbols
-let player1IsPlaying: Boolean = true
-const player1: String = 'X'
-const player2: String = 'O'
+let player1IsPlaying: boolean = true
+const player1: string = 'X'
+const player2: string = 'O'
 
 //Game loop
-input.on('data', function (data) {
+input.on('data', function (data: Buffer) {
+  const userInput: number = Number(data[0])
   console.clear()
 
   //bad input
-  if (
-    parseInt(data.toString()) > 9 ||
-    parseInt(data.toString()) < 1 ||
-    isNaN(parseInt(data.toString()))
-  ) {
+  if (userInput > 9 || userInput < 1 || isNaN(userInput)) {
     console.log(
       'Please enter a number between 1 and 9 to fill the required field'
     )
-  } else if (gameBoard[parseInt(data.toString()) - 1] != symbol) {
+  } else if (gameBoard[userInput - 1] != symbol) {
     console.log("The spot you're trying to fill is already taken.")
   }
   //which player's turn
   else if (player1IsPlaying) {
-    gameBoard[parseInt(data.toString()) - 1] = player1
+    gameBoard[userInput - 1] = player1
     player1IsPlaying = false
   } else if (!player1IsPlaying) {
-    gameBoard[parseInt(data.toString()) - 1] = player2
+    gameBoard[userInput - 1] = player2
     player1IsPlaying = true
   }
 
@@ -68,7 +67,7 @@ input.on('data', function (data) {
 })
 
 //check if any of the patterns below are matched with X or O. If so, the player has won.
-function checkForWin(board: String[], player: String) {
+function checkForWin(board: string[], player: string) {
   const isWinner = [
     [0, 1, 2],
     [3, 4, 5],
@@ -86,14 +85,20 @@ function checkForWin(board: String[], player: String) {
 }
 
 //check if nobody wins. If the array does not contain * and non of the rules above apply, nobody wins.
-function checkForFullBoard(board: String[]) {
+function checkForFullBoard(board: string[]) {
   if (!board.includes('*')) {
-    return true
+    if (!checkForWin(gameBoard, player1)) {
+      if (!checkForWin(gameBoard, player2)) {
+        return true
+      }
+    }
+  } else {
+    return false
   }
 }
 
 //showing the board in 3 rows and 3 columns
-function showBoard(board: String[]) {
+function showBoard(board: string[]) {
   console.log('---------')
   console.log(board.slice(0, 3).join('   '))
   console.log('')

@@ -4,8 +4,8 @@
   "description": "a small program that challenges you to play tic tac toe against it",
   "main": "index.ts",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpileOnly index.ts",
-    "prod": "tsc index.ts && node index.js"
+    "dev": "ts-node index.ts",
+    "prod": "tsc && node index.js"
   },
   "repository": {
     "type": "git",
